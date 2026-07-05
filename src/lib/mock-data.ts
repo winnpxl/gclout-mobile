@@ -88,6 +88,102 @@ export const users = [
   { id: "ugochi-dochie", name: "Ugochi Dochie", email: "ugoo@hotmail.com", phone: "+234 904 899 1379", role: "Page Admin", status: "Suspended" as UserStatus, lastLogin: "Jun 1, 2025, 9:30", profile: { dateOfBirth: "May 20, 1991", country: "Nigeria", nationality: "Nigerian", state: "Enugu", ward: "Nsukka", accountType: "Page Admin", partyAffiliation: "None", dateJoined: "November 8, 2023", joinedAs: "Admin" } as UserProfile },
 ];
 
+export type PostModeration = "Flagged" | "Taken down" | "Appealed" | null;
+
+export interface UserPost {
+  id: string;
+  author: string;
+  authorTitle: string;
+  verified: boolean;
+  moderation: PostModeration;
+  postedAgo: string;
+  text: string;
+  likes: number;
+  comments: number;
+  shares: number;
+  embed?:
+    | { kind: "event"; title: string; host: string; when: string }
+    | { kind: "gallery"; imageCount: number }
+    | { kind: "petition"; title: string; description: string; signatures: string };
+}
+
+export const userPosts: UserPost[] = [
+  {
+    id: "post-1",
+    author: "Babajide Sanwo-Olu",
+    authorTitle: "Governor, Lagos State",
+    verified: true,
+    moderation: "Flagged",
+    postedAgo: "2h",
+    text: "Secure and transparent Web3 voting built for the integrity of your DAO, corporate governance, and member-based organization.",
+    likes: 247,
+    comments: 247,
+    shares: 18,
+  },
+  {
+    id: "post-2",
+    author: "Babajide Sanwo-Olu",
+    authorTitle: "Governor, Lagos State",
+    verified: true,
+    moderation: null,
+    postedAgo: "2h",
+    text: "I need this petition to get to the highest of levels.",
+    likes: 247,
+    comments: 247,
+    shares: 18,
+    embed: {
+      kind: "event",
+      title: "State Budget Q&A with Gov. Sanwo-Olu and DG Hamzat.",
+      host: "Jonathan Adebola",
+      when: "15th May at 8:30pm",
+    },
+  },
+  {
+    id: "post-3",
+    author: "Babajide Sanwo-Olu",
+    authorTitle: "Governor, Lagos State",
+    verified: true,
+    moderation: "Taken down",
+    postedAgo: "2h",
+    text: "The governor at the office today! \u{1F44D}✨",
+    likes: 247,
+    comments: 247,
+    shares: 18,
+    embed: { kind: "gallery", imageCount: 4 },
+  },
+  {
+    id: "post-4",
+    author: "Babajide Sanwo-Olu",
+    authorTitle: "Governor, Lagos State",
+    verified: true,
+    moderation: "Appealed",
+    postedAgo: "2h",
+    text: "I need this petition to get to the highest of levels.",
+    likes: 247,
+    comments: 247,
+    shares: 18,
+    embed: {
+      kind: "petition",
+      title: "Increase of minimum wage for Civil Servants and Nigerians",
+      description:
+        "The current state of the economy is becoming unbearable for the average citizen, while they suffer, politicians take what's theirs. This is a petition to increase minimum wage as we see that you're really...",
+      signatures: "8,960",
+    },
+  },
+  {
+    id: "post-5",
+    author: "Babajide Sanwo-Olu",
+    authorTitle: "Governor, Lagos State",
+    verified: true,
+    moderation: null,
+    postedAgo: "2h",
+    text: "I need this petition to get to the highest of levels.",
+    likes: 247,
+    comments: 247,
+    shares: 18,
+  },
+];
+
 export type RequestStatus = "Pending" | "Approved" | "Rejected";
 
 export const roleChangeRequests = [

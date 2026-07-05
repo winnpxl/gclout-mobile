@@ -8,6 +8,7 @@ import {
   SuspendUserModal,
   ReactivateUserModal,
 } from "@/components/dashboard/modals";
+import { UserContentTab } from "@/components/dashboard/UserContentTab";
 import { users, type UserStatus } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
 
@@ -179,6 +180,8 @@ export default function UserProfilePage({
             </div>
           </section>
         </div>
+      ) : tab === "Content" ? (
+        <UserContentTab />
       ) : (
         <div className="mt-6 rounded-xl border border-gray-200 bg-white p-10 text-center text-sm text-gray-500">
           {tab} for {user.name} coming soon.
