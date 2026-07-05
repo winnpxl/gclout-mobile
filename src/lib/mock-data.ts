@@ -155,6 +155,43 @@ export const userPosts: UserPost[] = [
     shares: 18,
   },
 ];
+export const userAnalytics = {
+  stats: [
+    { label: "Last Active", value: "2 hours ago" },
+    { label: "Total Sessions", value: "47" },
+    { label: "Daily Active Time", value: "3.2 hrs" },
+    { label: "Days Active", value: "23/30" },
+    { label: "Total Posts Made", value: "23" },
+    { label: "Total Interactions", value: "1,247" },
+    { label: "Engagement Rate", value: "54.2%" },
+    { label: "Issues Addressed", value: "247" },
+  ],
+  dailyActivity: [
+    { day: "Mon", hours: 12 },
+    { day: "Tue", hours: 18 },
+    { day: "Wed", hours: 7 },
+    { day: "Thu", hours: 13 },
+    { day: "Fri", hours: 7 },
+    { day: "Sat", hours: 17 },
+    { day: "Sun", hours: 12 },
+  ],
+  governance: [
+    { label: "Polls Taken", value: 34 },
+    { label: "Petitions Signed", value: 28 },
+    { label: "Townhalls Joined", value: 12 },
+  ],
+  topContent: {
+    format: "Text-only",
+    interactions: 89,
+    text: "Secure and transparent Web3 voting built for the integrity of your DAO, corporate governance, and member-based organization.",
+  },
+  security: {
+    successfulLogins: 47,
+    failedAttempts: 2,
+    lastLogin: "2 hours ago",
+  },
+};
+
 export type RequestStatus = "Pending" | "Approved" | "Rejected";
 export const roleChangeRequests = [
   { id: "RC-1041", name: "Adaeze Okafor", email: "adaeze.ok@gmail.com", currentRole: "Citizen", requestedRole: "Elected Rep", reason: "Won local government chairmanship election", date: "Jun 9, 2025", status: "Pending" as RequestStatus },

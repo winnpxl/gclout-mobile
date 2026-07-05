@@ -9,6 +9,7 @@ import {
   ReactivateUserModal,
 } from "@/components/dashboard/modals";
 import { UserContentTab } from "@/components/dashboard/UserContentTab";
+import { UserAnalyticsTab } from "@/components/dashboard/UserAnalyticsTab";
 import { users, type UserStatus } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
 
@@ -185,9 +186,9 @@ export default function UserProfilePage({
           author={{ name: user.name, title: `${user.role}, ${p.state} State` }}
         />
       ) : (
-        <div className="mt-6 rounded-xl border border-gray-200 bg-white p-10 text-center text-sm text-gray-500">
-          {tab} for {user.name} coming soon.
-        </div>
+        <UserAnalyticsTab
+          author={{ name: user.name, title: `${user.role}, ${p.state} State` }}
+        />
       )}
 
       {modal === "suspend" && (
