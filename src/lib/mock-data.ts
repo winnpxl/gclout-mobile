@@ -65,15 +65,27 @@ export const awaitingReview = [
 
 export type UserStatus = "Active" | "Suspended";
 
+export interface UserProfile {
+  dateOfBirth: string;
+  country: string;
+  nationality: string;
+  state: string;
+  ward: string;
+  accountType: string;
+  partyAffiliation: string;
+  dateJoined: string;
+  joinedAs: string;
+}
+
 export const users = [
-  { name: "Rebecca Bashir", email: "beccahye@icloud.com", phone: "+234 812 004 5477", role: "Citizen", status: "Active" as UserStatus, lastLogin: "Dec 1, 2024, 9:30" },
-  { name: "Lydia Durojaiye", email: "phoenixbaker@outlook.com", phone: "+234 909 078 2553", role: "Elected Rep", status: "Suspended" as UserStatus, lastLogin: "Nov 1, 2025, 9:30" },
-  { name: "Candice Woo", email: "candicr@aol.com", phone: "+234 915 899 2253", role: "Appointed Rep", status: "Active" as UserStatus, lastLogin: "Oct 1, 2025, 9:30" },
-  { name: "Susan Adeleke", email: "suan@gmail.com", phone: "+234 814 008 9294", role: "Citizen", status: "Suspended" as UserStatus, lastLogin: "Jul 1, 2025, 9:30" },
-  { name: "David Olowookere", email: "davido@hotmail.com", phone: "+234 904 899 1379", role: "Page Admin", status: "Suspended" as UserStatus, lastLogin: "Jun 1, 2025, 9:30" },
-  { name: "Toyin Oyidamola", email: "toyintomato@hotmail.com", phone: "+234 904 899 1379", role: "Page", status: "Suspended" as UserStatus, lastLogin: "Jun 1, 2025, 9:30" },
-  { name: "Mary Obubra", email: "matuyui@hotmail.com", phone: "+234 904 899 1379", role: "Page Admin", status: "Active" as UserStatus, lastLogin: "Jun 1, 2025, 9:30" },
-  { name: "Ugochi Dochie", email: "ugoo@hotmail.com", phone: "+234 904 899 1379", role: "Page Admin", status: "Suspended" as UserStatus, lastLogin: "Jun 1, 2025, 9:30" },
+  { id: "rebecca-bashir", name: "Rebecca Bashir", email: "beccahye@icloud.com", phone: "+234 812 004 5477", role: "Citizen", status: "Active" as UserStatus, lastLogin: "Dec 1, 2024, 9:30", profile: { dateOfBirth: "April 16, 1999", country: "Nigeria", nationality: "Nigerian", state: "Lagos", ward: "Makoko", accountType: "Citizen", partyAffiliation: "Labour Party", dateJoined: "June 24, 2023", joinedAs: "Member" } as UserProfile },
+  { id: "lydia-durojaiye", name: "Lydia Durojaiye", email: "phoenixbaker@outlook.com", phone: "+234 909 078 2553", role: "Elected Rep", status: "Suspended" as UserStatus, lastLogin: "Nov 1, 2025, 9:30", profile: { dateOfBirth: "August 2, 1985", country: "Nigeria", nationality: "Nigerian", state: "Oyo", ward: "Ibadan North", accountType: "Elected Rep", partyAffiliation: "APC", dateJoined: "March 12, 2022", joinedAs: "Representative" } as UserProfile },
+  { id: "candice-woo", name: "Candice Woo", email: "candicr@aol.com", phone: "+234 915 899 2253", role: "Appointed Rep", status: "Active" as UserStatus, lastLogin: "Oct 1, 2025, 9:30", profile: { dateOfBirth: "January 30, 1990", country: "Nigeria", nationality: "Nigerian", state: "Abuja FCT", ward: "Garki", accountType: "Appointed Rep", partyAffiliation: "PDP", dateJoined: "May 5, 2023", joinedAs: "Representative" } as UserProfile },
+  { id: "susan-adeleke", name: "Susan Adeleke", email: "suan@gmail.com", phone: "+234 814 008 9294", role: "Citizen", status: "Suspended" as UserStatus, lastLogin: "Jul 1, 2025, 9:30", profile: { dateOfBirth: "October 11, 1995", country: "Nigeria", nationality: "Nigerian", state: "Ogun", ward: "Abeokuta South", accountType: "Citizen", partyAffiliation: "None", dateJoined: "August 19, 2023", joinedAs: "Member" } as UserProfile },
+  { id: "david-olowookere", name: "David Olowookere", email: "davido@hotmail.com", phone: "+234 904 899 1379", role: "Page Admin", status: "Suspended" as UserStatus, lastLogin: "Jun 1, 2025, 9:30", profile: { dateOfBirth: "June 7, 1988", country: "Nigeria", nationality: "Nigerian", state: "Kwara", ward: "Ilorin West", accountType: "Page Admin", partyAffiliation: "None", dateJoined: "February 2, 2024", joinedAs: "Admin" } as UserProfile },
+  { id: "toyin-oyidamola", name: "Toyin Oyidamola", email: "toyintomato@hotmail.com", phone: "+234 904 899 1379", role: "Page", status: "Suspended" as UserStatus, lastLogin: "Jun 1, 2025, 9:30", profile: { dateOfBirth: "December 25, 1992", country: "Nigeria", nationality: "Nigerian", state: "Osun", ward: "Osogbo", accountType: "Page", partyAffiliation: "None", dateJoined: "July 30, 2024", joinedAs: "Page" } as UserProfile },
+  { id: "mary-obubra", name: "Mary Obubra", email: "matuyui@hotmail.com", phone: "+234 904 899 1379", role: "Page Admin", status: "Active" as UserStatus, lastLogin: "Jun 1, 2025, 9:30", profile: { dateOfBirth: "March 3, 1993", country: "Nigeria", nationality: "Nigerian", state: "Cross River", ward: "Obubra", accountType: "Page Admin", partyAffiliation: "None", dateJoined: "September 14, 2023", joinedAs: "Admin" } as UserProfile },
+  { id: "ugochi-dochie", name: "Ugochi Dochie", email: "ugoo@hotmail.com", phone: "+234 904 899 1379", role: "Page Admin", status: "Suspended" as UserStatus, lastLogin: "Jun 1, 2025, 9:30", profile: { dateOfBirth: "May 20, 1991", country: "Nigeria", nationality: "Nigerian", state: "Enugu", ward: "Nsukka", accountType: "Page Admin", partyAffiliation: "None", dateJoined: "November 8, 2023", joinedAs: "Admin" } as UserProfile },
 ];
 
 export type RequestStatus = "Pending" | "Approved" | "Rejected";

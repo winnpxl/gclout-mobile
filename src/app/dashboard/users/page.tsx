@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
@@ -179,12 +180,12 @@ export default function UsersPage() {
                       className="absolute right-4 top-10 z-10 w-44 rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <button
-                        type="button"
+                      <Link
+                        href={`/dashboard/users/${user.id}`}
                         className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
                       >
                         View details
-                      </button>
+                      </Link>
                       {user.status === "Active" ? (
                         <button
                           type="button"
