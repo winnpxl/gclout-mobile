@@ -33,7 +33,9 @@ const navItems = [
     label: "Content",
     href: "/dashboard/content",
     icon: FileText,
-    subItems: [],
+    subItems: [
+      { label: "Your Posts", href: "/dashboard/content/your-posts" },
+    ],
   },
   { label: "Report", href: "/dashboard/report", icon: Flag },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },

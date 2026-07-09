@@ -255,6 +255,74 @@ export const userAnalytics = {
   },
 };
 
+export interface ContentSearchResult {
+  id: string;
+  title: string;
+  description: string;
+  author: string;
+  type: string;
+  signatures: string;
+  status: "Active" | "Under review" | "Closed";
+  date: string;
+}
+
+export const contentSearchResults: ContentSearchResult[] = [
+  { id: "PT-1001", title: "Youth Petition for Credible Electoral Process", description: "This petition is directed to INEC imploring them to double down on efforts against electoral malpractices involving...", author: "Jerri Grau", type: "Petition", signatures: "8,960", status: "Active", date: "Thu 24 Jun, 2025 10:30 am" },
+  { id: "PT-1002", title: "Youth Petition for Credible Electoral Process", description: "This petition is directed to INEC imploring them to double down on efforts against electoral malpractices involving...", author: "Ade Salami", type: "Petition", signatures: "6,214", status: "Under review", date: "Thu 24 Jun, 2025 10:30 am" },
+  { id: "PT-1003", title: "Youth Petition for Credible Electoral Process", description: "This petition is directed to INEC imploring them to double down on efforts against electoral malpractices involving...", author: "Ngozi Obi", type: "Petition", signatures: "4,102", status: "Active", date: "Thu 24 Jun, 2025 10:30 am" },
+  { id: "PT-1004", title: "Youth Petition for Credible Electoral Process", description: "This petition is directed to INEC imploring them to double down on efforts against electoral malpractices involving...", author: "Femi Kuti", type: "Petition", signatures: "2,876", status: "Closed", date: "Thu 24 Jun, 2025 10:30 am" },
+  { id: "PT-1005", title: "Youth Petition for Credible Electoral Process", description: "This petition is directed to INEC imploring them to double down on efforts against electoral malpractices involving...", author: "Hauwa Bello", type: "Petition", signatures: "1,530", status: "Active", date: "Thu 24 Jun, 2025 10:30 am" },
+  { id: "PT-1006", title: "Youth Petition for Credible Electoral Process", description: "This petition is directed to INEC imploring them to double down on efforts against electoral malpractices involving...", author: "Chuka Eze", type: "Petition", signatures: "987", status: "Under review", date: "Thu 24 Jun, 2025 10:30 am" },
+];
+
+export type AdminPostKind = "post" | "media" | "poll" | "petition";
+
+export interface AdminOwnPost {
+  id: string;
+  kind: AdminPostKind;
+  postedAgo: string;
+  text: string;
+  likes: number;
+  comments: number;
+  hasEventEmbed?: boolean;
+}
+
+export const adminPosts: AdminOwnPost[] = [
+  {
+    id: "gp-1",
+    kind: "post",
+    postedAgo: "1d",
+    text: "We are going to be cutting tickets down for the Townhall Feedback community, and so we are cautiously monitoring upcoming town halls. Please bear with us as it is currently by invite only for verified accounts.",
+    likes: 247,
+    comments: 247,
+  },
+  {
+    id: "gp-2",
+    kind: "media",
+    postedAgo: "2d",
+    text: "I need this petition to get to the highest of levels.",
+    likes: 512,
+    comments: 96,
+    hasEventEmbed: true,
+  },
+  {
+    id: "gp-3",
+    kind: "poll",
+    postedAgo: "4d",
+    text: "Should town hall sessions be extended to weekends? Vote in our latest community poll.",
+    likes: 130,
+    comments: 45,
+  },
+  {
+    id: "gp-4",
+    kind: "petition",
+    postedAgo: "1w",
+    text: "Sign the official petition for improved civic infrastructure across all wards.",
+    likes: 890,
+    comments: 210,
+  },
+];
+
 export type RequestStatus = "Pending" | "Approved" | "Rejected";
 export const roleChangeRequests = [
   { id: "RC-1041", name: "Adaeze Okafor", email: "adaeze.ok@gmail.com", currentRole: "Citizen", requestedRole: "Elected Rep", reason: "Won local government chairmanship election", date: "Jun 9, 2025", status: "Pending" as RequestStatus },
