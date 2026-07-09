@@ -9,6 +9,11 @@ import {
   Plus,
   ThumbsUp,
 } from "lucide-react";
+import {
+  CreateContentModal,
+  CreateIntegrityPollModal,
+  type NewPost,
+} from "@/components/dashboard/composer";
 import { adminPosts, type AdminPostKind } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
 
@@ -50,9 +55,25 @@ function EventEmbed() {
 
 export default function YourPostsPage() {
   const [tab, setTab] = useState<AdminPostKind | "all">("all");
+  const [feed, setFeed] = useState(adminPosts);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [modal, setModal] = useState<"content" | "integrity" | null>(null);
 
-  const posts =
-    tab === "all" ? adminPosts : adminPosts.filter((p) => p.kind === tab);
+  const posts = tab === "all" ? feed : feed.filter((p) => p.kind === tab);
+
+  function addPost(post: NewPost) {
+    setFeed((prev) => [
+      {
+        id: `gp-${Date.now()}`,
+        kind: post.kind,
+        postedAgo: "now",
+        text: post.text,
+        likes: 0,
+        comments: 0,
+      },
+      ...prev,
+    ]);
+  }
 
   return (
     <main className="px-6 py-6 space-y-6">
@@ -63,12 +84,39 @@ export default function YourPostsPage() {
             Create and manage posts you share on the profile.
           </p>
         </div>
-        <button
-          type="button"
-          className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-        >
-          <Plus size={15} /> Create content
-        </button>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setMenuOpen((v) => !v)}
+            className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+          >
+            <Plus size={15} /> Create content
+          </button>
+          {menuOpen && (
+            <div className="absolute right-0 z-10 mt-1 w-48 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setModal("content");
+                }}
+                className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
+              >
+                Create post
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setModal("integrity");
+                }}
+                className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
+              >
+                Create integrity poll
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="flex gap-6 border-b border-gray-200">
@@ -146,6 +194,18 @@ export default function YourPostsPage() {
           )}
         </div>
       </div>
+
+      {modal === "content" && (
+        <CreateContentModal onClose={() => setModal(null)} onPost={addPost} />
+      )}
+      {modal === "integrity" && (
+        <CreateIntegrityPollModal
+          subjectName="Balogun Abdullahi Oladipupo"
+          subjectTitle="President, Federal Republic of Nigeria"
+          onClose={() => setModal(null)}
+          onPost={(text) => addPost({ text, kind: "poll" })}
+        />
+      )}
     </main>
   );
 }
