@@ -25,3 +25,35 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Placeholder for the petition rich-text editor */
+.petition-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+}
+.petition-editor h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.petition-editor h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.petition-editor blockquote {
+  border-left: 3px solid #d1d5db;
+  padding-left: 0.75rem;
+  color: #6b7280;
+}
+.petition-editor ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.petition-editor ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+.petition-editor a {
+  color: #2563eb;
+  text-decoration: underline;
+}

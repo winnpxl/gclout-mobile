@@ -5,17 +5,27 @@ import {
   AlignLeft,
   ArrowLeft,
   AtSign,
+  Bold,
   Building2,
   Check,
   ChevronDown,
   FilePenLine,
   Globe,
+  Heading1,
+  Heading2,
+  ImageIcon,
   ImagePlus,
+  Italic,
+  Link2,
+  List,
+  ListOrdered,
   ListTodo,
   Lock,
+  Quote,
   Search,
   Smile,
   Sparkles,
+  UploadCloud,
   UserRound,
   UserRoundCheck,
   X,
@@ -68,9 +78,11 @@ function EmojiPicker({ onPick }: { onPick: (emoji: string) => void }) {
 function DurationPicker({
   value,
   onChange,
+  placeholder = "Select poll duration",
 }: {
   value: string | null;
   onChange: (v: string) => void;
+  placeholder?: string;
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -80,7 +92,7 @@ function DurationPicker({
         onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900"
       >
-        {value ?? "Select poll duration"} <ChevronDown size={14} />
+        {value ?? placeholder} <ChevronDown size={14} />
       </button>
       {open && (
         <div className="absolute bottom-7 left-0 z-20 w-36 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
@@ -891,6 +903,286 @@ export function CreateIntegrityPollModal({
           >
             Post poll
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------ Create petition --------------------------- */
+
+const petitionDurations = ["1 week", "2 weeks", "1 month", "3 months"];
+
+const styleBlocks = [
+  { label: "Normal", block: "P" },
+  { label: "Heading 1", block: "H1" },
+  { label: "Heading 2", block: "H2" },
+  { label: "Quote", block: "BLOCKQUOTE" },
+];
+
+interface NewPetition {
+  title: string;
+  description: string;
+  coverImage?: string;
+  duration: string;
+  draft: boolean;
+}
+
+interface CreatePetitionModalProps {
+  onClose: () => void;
+  onSubmit: (petition: NewPetition) => void;
+}
+
+export function CreatePetitionModal({
+  onClose,
+  onSubmit,
+}: CreatePetitionModalProps) {
+  const [title, setTitle] = useState("");
+  const [cover, setCover] = useState<string | null>(null);
+  const [duration, setDuration] = useState<string | null>(null);
+  const [styleOpen, setStyleOpen] = useState(false);
+  const editorRef = useRef<HTMLDivElement>(null);
+  const coverInputRef = useRef<HTMLInputElement>(null);
+
+  const canContinue = title.trim().length > 0;
+
+  // Rich-text commands run on the contentEditable body. onMouseDown keeps the
+  // selection in the editor instead of moving focus to the toolbar button.
+  function exec(command: string, value?: string) {
+    editorRef.current?.focus();
+    document.execCommand(command, false, value);
+  }
+
+  function onCoverSelected(files: FileList | null) {
+    if (files && files[0]) {
+      if (cover) URL.revokeObjectURL(cover);
+      setCover(URL.createObjectURL(files[0]));
+    }
+  }
+
+  function submit(draft: boolean) {
+    if (!draft && !canContinue) return;
+    onSubmit({
+      title: title.trim() || "Untitled petition",
+      description: editorRef.current?.innerHTML ?? "",
+      coverImage: cover ?? undefined,
+      duration: duration ?? petitionDurations[0],
+      draft,
+    });
+    onClose();
+  }
+
+  const toolbarBtn =
+    "flex h-8 w-8 items-center justify-center rounded-md text-gray-600 hover:bg-white hover:text-gray-900";
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center bg-gray-900/40 p-4 pt-10"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+        className="flex max-h-[88vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-xl"
+      >
+        {/* Header with formatting toolbar */}
+        <div className="flex items-center justify-between border-b border-gray-100 px-5 py-3">
+          <h2 className="text-lg font-bold text-gray-900">Create Petition</h2>
+          <div className="flex items-center gap-0.5 rounded-full bg-blue-50 px-2 py-1">
+            <div className="relative">
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => setStyleOpen((v) => !v)}
+                className="flex items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-gray-700 hover:bg-white"
+              >
+                Style <ChevronDown size={13} />
+              </button>
+              {styleOpen && (
+                <div className="absolute left-0 top-9 z-20 w-36 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+                  {styleBlocks.map((s) => (
+                    <button
+                      key={s.block}
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => {
+                        exec("formatBlock", s.block);
+                        setStyleOpen(false);
+                      }}
+                      className="block w-full px-3 py-1.5 text-left text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <span className="mx-1 h-4 w-px bg-blue-200" />
+            <button type="button" aria-label="Bold" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("bold")} className={toolbarBtn}>
+              <Bold size={15} />
+            </button>
+            <button type="button" aria-label="Italic" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("italic")} className={toolbarBtn}>
+              <Italic size={15} />
+            </button>
+            <button type="button" aria-label="Heading 1" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("formatBlock", "H2")} className={toolbarBtn}>
+              <Heading1 size={15} />
+            </button>
+            <button type="button" aria-label="Heading 2" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("formatBlock", "H3")} className={toolbarBtn}>
+              <Heading2 size={15} />
+            </button>
+            <button type="button" aria-label="Quote" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("formatBlock", "BLOCKQUOTE")} className={toolbarBtn}>
+              <Quote size={15} />
+            </button>
+            <button
+              type="button"
+              aria-label="Insert link"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                const url = window.prompt("Enter a URL");
+                if (url) exec("createLink", url);
+              }}
+              className={toolbarBtn}
+            >
+              <Link2 size={15} />
+            </button>
+            <button
+              type="button"
+              aria-label="Insert image"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => {
+                const url = window.prompt("Enter an image URL");
+                if (url) exec("insertImage", url);
+              }}
+              className={toolbarBtn}
+            >
+              <ImageIcon size={15} />
+            </button>
+            <button type="button" aria-label="Bulleted list" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("insertUnorderedList")} className={toolbarBtn}>
+              <List size={15} />
+            </button>
+            <button type="button" aria-label="Numbered list" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("insertOrderedList")} className={toolbarBtn}>
+              <ListOrdered size={15} />
+            </button>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close dialog"
+            className="text-gray-400 hover:text-gray-600"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="min-h-0 flex-1 overflow-y-auto bg-gray-50 px-6 py-6">
+          {/* Cover image */}
+          {cover ? (
+            <div className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={cover}
+                alt="Petition cover"
+                className="max-h-72 w-full rounded-xl object-cover"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  URL.revokeObjectURL(cover);
+                  setCover(null);
+                }}
+                aria-label="Remove cover image"
+                className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900/60 text-white hover:bg-gray-900"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          ) : (
+            <div className="relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 py-14">
+              <button
+                type="button"
+                onClick={() => coverInputRef.current?.click()}
+                className="flex h-12 w-12 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
+              >
+                <UploadCloud size={20} />
+              </button>
+              <p className="mt-3 text-sm text-gray-600">
+                <button
+                  type="button"
+                  onClick={() => coverInputRef.current?.click()}
+                  className="font-semibold text-primary hover:underline"
+                >
+                  Upload cover image
+                </button>{" "}
+                or drag and drop
+              </p>
+              <p className="mt-1 text-xs text-gray-400">
+                PNG, JPG or GIF (optional)
+              </p>
+            </div>
+          )}
+          <input
+            ref={coverInputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/gif"
+            className="hidden"
+            onChange={(e) => {
+              onCoverSelected(e.target.files);
+              e.target.value = "";
+            }}
+          />
+
+          {/* Title */}
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Add Title"
+            className="mt-8 w-full bg-transparent text-3xl font-bold text-gray-900 placeholder:text-gray-400 focus:outline-none"
+          />
+
+          {/* Description (rich text) */}
+          <div
+            ref={editorRef}
+            contentEditable
+            suppressContentEditableWarning
+            data-placeholder="Describe your petition here..."
+            className="petition-editor mt-4 min-h-40 text-base text-gray-800 focus:outline-none"
+          />
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between border-t border-gray-100 px-6 py-4">
+          <div className="flex items-center gap-5">
+            <WhoCanSee />
+            <DurationPicker
+              value={duration}
+              onChange={setDuration}
+              placeholder="Petition duration"
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => submit(true)}
+              className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Save as draft
+            </button>
+            <button
+              type="button"
+              onClick={() => submit(false)}
+              disabled={!canContinue}
+              className={cn(
+                "rounded-lg px-5 py-2 text-sm font-medium text-white",
+                canContinue
+                  ? "bg-primary hover:bg-blue-700"
+                  : "bg-blue-300 cursor-not-allowed"
+              )}
+            >
+              Continue
+            </button>
+          </div>
         </div>
       </div>
     </div>

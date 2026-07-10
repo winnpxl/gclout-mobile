@@ -12,6 +12,7 @@ import {
 import {
   CreateContentModal,
   CreateIntegrityPollModal,
+  CreatePetitionModal,
   type NewPost,
 } from "@/components/dashboard/composer";
 import { adminPosts, type AdminPostKind } from "@/lib/mock-data";
@@ -123,7 +124,9 @@ export default function YourPostsPage() {
   const [tab, setTab] = useState<AdminPostKind | "all">("all");
   const [feed, setFeed] = useState(adminPosts);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [modal, setModal] = useState<"content" | "integrity" | null>(null);
+  const [modal, setModal] = useState<
+    "content" | "integrity" | "petition" | null
+  >(null);
 
   const posts = tab === "all" ? feed : feed.filter((p) => p.kind === tab);
 
@@ -181,6 +184,16 @@ export default function YourPostsPage() {
                 className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
               >
                 Create integrity poll
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setModal("petition");
+                }}
+                className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
+              >
+                Create petition
               </button>
             </div>
           )}
@@ -297,6 +310,19 @@ export default function YourPostsPage() {
         <CreateIntegrityPollModal
           onClose={() => setModal(null)}
           onPost={(text) => addPost({ text, kind: "poll" })}
+        />
+      )}
+      {modal === "petition" && (
+        <CreatePetitionModal
+          onClose={() => setModal(null)}
+          onSubmit={(petition) => {
+            if (petition.draft) return;
+            addPost({
+              text: petition.title,
+              kind: "petition",
+              images: petition.coverImage ? [petition.coverImage] : undefined,
+            });
+          }}
         />
       )}
     </main>
