@@ -304,7 +304,11 @@ export default function YourPostsPage() {
       </div>
 
       {modal === "content" && (
-        <CreateContentModal onClose={() => setModal(null)} onPost={addPost} />
+        <CreateContentModal
+          onClose={() => setModal(null)}
+          onPost={addPost}
+          onIntegrityPoll={() => setModal("integrity")}
+        />
       )}
       {modal === "integrity" && (
         <CreateIntegrityPollModal

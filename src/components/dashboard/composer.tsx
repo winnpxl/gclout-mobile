@@ -359,10 +359,12 @@ function ComposerToolbar({
   onAddImage,
   onTogglePoll,
   onEmoji,
+  onIntegrityPoll,
 }: {
   onAddImage: () => void;
   onTogglePoll: () => void;
   onEmoji: (emoji: string) => void;
+  onIntegrityPoll: () => void;
 }) {
   return (
     <div className="flex items-center gap-4 text-gray-500">
@@ -376,7 +378,12 @@ function ComposerToolbar({
       <button type="button" aria-label="Tag organization" className="hover:text-primary">
         <Building2 size={17} />
       </button>
-      <button type="button" aria-label="Formatting" className="hover:text-primary">
+      <button
+        type="button"
+        aria-label="Create integrity poll"
+        onClick={onIntegrityPoll}
+        className="hover:text-primary"
+      >
         <AlignLeft size={17} />
       </button>
       <button
@@ -399,11 +406,16 @@ export interface NewPost {
 interface CreateContentModalProps {
   onClose: () => void;
   onPost: (post: NewPost) => void;
+  onIntegrityPoll: () => void;
 }
 
 type ComposerView = "main" | "description" | "tagPeople";
 
-export function CreateContentModal({ onClose, onPost }: CreateContentModalProps) {
+export function CreateContentModal({
+  onClose,
+  onPost,
+  onIntegrityPoll,
+}: CreateContentModalProps) {
   const [view, setView] = useState<ComposerView>("main");
   const [text, setText] = useState("");
   const [images, setImages] = useState<string[]>([]);
@@ -642,6 +654,7 @@ export function CreateContentModal({ onClose, onPost }: CreateContentModalProps)
                     ? setPollQuestion((t) => t + emoji)
                     : setText((t) => t + emoji)
                 }
+                onIntegrityPoll={onIntegrityPoll}
               />
               <button
                 type="button"
