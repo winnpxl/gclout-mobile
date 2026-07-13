@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
-  Check,
+  Ban,
+  CircleCheck,
+  ClipboardList,
+  IdCard,
   ListFilter,
+  MoreVertical,
   Search,
   Upload,
-  X,
 } from "lucide-react";
 import {
   ApplicationReviewModal,
@@ -28,8 +32,10 @@ const statusStyles: Record<RequestStatus, string> = {
 };
 
 export default function RoleChangeRequestsPage() {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [requests, setRequests] = useState(roleChangeRequests);
+  const [menuFor, setMenuFor] = useState<string | null>(null);
   const [rejecting, setRejecting] = useState<{ id: string; name: string } | null>(
     null
   );
@@ -53,7 +59,7 @@ export default function RoleChangeRequestsPage() {
   }
 
   return (
-    <main className="px-6 py-6 space-y-6">
+    <main className="px-6 py-6 space-y-6" onClick={() => setMenuFor(null)}>
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">
@@ -139,31 +145,71 @@ export default function RoleChangeRequestsPage() {
                     {r.status}
                   </span>
                 </td>
-                <td className="px-4 py-4">
-                  {r.status === "Pending" ? (
-                    <div
-                      className="flex items-center gap-2"
-                      onClick={(e) => e.stopPropagation()}
-                    >
+                <td
+                  className="relative px-4 py-4"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    type="button"
+                    aria-label={`Actions for ${r.id}`}
+                    onClick={() =>
+                      setMenuFor(menuFor === r.id ? null : r.id)
+                    }
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <MoreVertical size={16} />
+                  </button>
+                  {menuFor === r.id && (
+                    <div className="absolute right-6 top-10 z-10 w-48 rounded-xl border border-gray-200 bg-white py-1.5 shadow-lg">
                       <button
                         type="button"
-                        onClick={() => setStatus(r.id, "Approved")}
-                        aria-label={`Approve ${r.id}`}
-                        className="flex h-7 w-7 items-center justify-center rounded-md border border-green-200 bg-green-50 text-green-600 hover:bg-green-100"
+                        onClick={() => {
+                          setMenuFor(null);
+                          router.push(`/dashboard/users/${r.userId}`);
+                        }}
+                        className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50"
                       >
-                        <Check size={14} />
+                        <IdCard size={16} className="text-gray-500" /> View
+                        profile
                       </button>
                       <button
                         type="button"
-                        onClick={() => setRejecting({ id: r.id, name: r.name })}
-                        aria-label={`Reject ${r.id}`}
-                        className="flex h-7 w-7 items-center justify-center rounded-md border border-red-200 bg-red-50 text-red-500 hover:bg-red-100"
+                        onClick={() => {
+                          setMenuFor(null);
+                          setReviewing(r);
+                        }}
+                        className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50"
                       >
-                        <X size={14} />
+                        <ClipboardList size={16} className="text-gray-500" />{" "}
+                        View application
                       </button>
+                      {r.status === "Pending" && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setMenuFor(null);
+                              setStatus(r.id, "Approved");
+                            }}
+                            className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50"
+                          >
+                            <CircleCheck size={16} className="text-gray-500" />{" "}
+                            Approve request
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setMenuFor(null);
+                              setRejecting({ id: r.id, name: r.name });
+                            }}
+                            className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50"
+                          >
+                            <Ban size={16} className="text-gray-500" /> Reject
+                            request
+                          </button>
+                        </>
+                      )}
                     </div>
-                  ) : (
-                    <span className="text-xs text-gray-400">—</span>
                   )}
                 </td>
               </tr>

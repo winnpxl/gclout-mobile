@@ -727,12 +727,12 @@ export const helpCategories: HelpCategory[] = [
 
 export type RequestStatus = "Pending" | "Approved" | "Rejected";
 export const roleChangeRequests = [
-  { id: "RC-1041", name: "Adaeze Okafor", email: "adaeze.ok@gmail.com", currentRole: "Citizen", requestedRole: "Elected Rep", reason: "Won local government chairmanship election", date: "Jun 9, 2025", status: "Pending" as RequestStatus },
-  { id: "RC-1040", name: "Bolaji Adewale", email: "bolaji.a@outlook.com", currentRole: "Citizen", requestedRole: "Page Admin", reason: "Managing official party page", date: "Jun 8, 2025", status: "Pending" as RequestStatus },
-  { id: "RC-1038", name: "Chidinma Eze", email: "chidi.eze@yahoo.com", currentRole: "Page", requestedRole: "Page Admin", reason: "Promoted to communications lead", date: "Jun 7, 2025", status: "Approved" as RequestStatus },
-  { id: "RC-1035", name: "Musa Ibrahim", email: "musa.i@gmail.com", currentRole: "Citizen", requestedRole: "Appointed Rep", reason: "Appointed commissioner for works", date: "Jun 5, 2025", status: "Pending" as RequestStatus },
-  { id: "RC-1033", name: "Funke Alabi", email: "funke.alabi@hotmail.com", currentRole: "Citizen", requestedRole: "Elected Rep", reason: "Insufficient verification documents", date: "Jun 3, 2025", status: "Rejected" as RequestStatus },
-  { id: "RC-1030", name: "Emeka Nwosu", email: "emeka.n@icloud.com", currentRole: "Page", requestedRole: "Page Admin", reason: "Taking over page management", date: "Jun 1, 2025", status: "Approved" as RequestStatus },
+  { id: "RC-1041", userId: "rebecca-bashir", name: "Adaeze Okafor", email: "adaeze.ok@gmail.com", currentRole: "Citizen", requestedRole: "Elected Rep", reason: "Won local government chairmanship election", date: "Jun 9, 2025", status: "Pending" as RequestStatus },
+  { id: "RC-1040", userId: "candice-woo", name: "Bolaji Adewale", email: "bolaji.a@outlook.com", currentRole: "Citizen", requestedRole: "Page Admin", reason: "Managing official party page", date: "Jun 8, 2025", status: "Pending" as RequestStatus },
+  { id: "RC-1038", userId: "mary-obubra", name: "Chidinma Eze", email: "chidi.eze@yahoo.com", currentRole: "Page", requestedRole: "Page Admin", reason: "Promoted to communications lead", date: "Jun 7, 2025", status: "Approved" as RequestStatus },
+  { id: "RC-1035", userId: "susan-adeleke", name: "Musa Ibrahim", email: "musa.i@gmail.com", currentRole: "Citizen", requestedRole: "Appointed Rep", reason: "Appointed commissioner for works", date: "Jun 5, 2025", status: "Pending" as RequestStatus },
+  { id: "RC-1033", userId: "david-olowookere", name: "Funke Alabi", email: "funke.alabi@hotmail.com", currentRole: "Citizen", requestedRole: "Elected Rep", reason: "Insufficient verification documents", date: "Jun 3, 2025", status: "Rejected" as RequestStatus },
+  { id: "RC-1030", userId: "toyin-oyidamola", name: "Emeka Nwosu", email: "emeka.n@icloud.com", currentRole: "Page", requestedRole: "Page Admin", reason: "Taking over page management", date: "Jun 1, 2025", status: "Approved" as RequestStatus },
 ];
 export interface VerificationRequest {
   id: string;
