@@ -398,7 +398,7 @@ function ComposerToolbar({
 
 export interface NewPost {
   text: string;
-  kind: "post" | "media" | "poll";
+  kind: "post" | "media" | "poll" | "petition";
   images?: string[];
   poll?: { options: string[]; duration: string };
 }
