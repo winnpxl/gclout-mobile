@@ -733,6 +733,25 @@ export const roleChangeRequests = [
   { id: "RC-1033", name: "Funke Alabi", email: "funke.alabi@hotmail.com", currentRole: "Citizen", requestedRole: "Elected Rep", reason: "Insufficient verification documents", date: "Jun 3, 2025", status: "Rejected" as RequestStatus },
   { id: "RC-1030", name: "Emeka Nwosu", email: "emeka.n@icloud.com", currentRole: "Page", requestedRole: "Page Admin", reason: "Taking over page management", date: "Jun 1, 2025", status: "Approved" as RequestStatus },
 ];
+export interface VerificationRequest {
+  id: string;
+  name: string;
+  email: string;
+  requestedRole: string;
+  party: string;
+  membershipId: string;
+  status: RequestStatus;
+  date: string;
+}
+
+export const verificationRequests: VerificationRequest[] = [
+  { id: "VR-0392", name: "Adeola Uchemba", email: "adeola.u@gmail.com", requestedRole: "Party Member", party: "APC", membershipId: "Glopo0392", status: "Pending", date: "May 17th, 2025" },
+  { id: "VR-0391", name: "Ibrahim Danladi", email: "i.danladi@yahoo.com", requestedRole: "Party Member", party: "PDP", membershipId: "Glopo0391", status: "Pending", date: "May 16th, 2025" },
+  { id: "VR-0388", name: "Chiamaka Okonkwo", email: "chiamaka.ok@outlook.com", requestedRole: "Party Member", party: "Labour Party", membershipId: "Glopo0388", status: "Approved", date: "May 14th, 2025" },
+  { id: "VR-0385", name: "Yusuf Aliyu", email: "yusuf.aliyu@gmail.com", requestedRole: "Party Member", party: "APC", membershipId: "Glopo0385", status: "Pending", date: "May 12th, 2025" },
+  { id: "VR-0380", name: "Blessing Adeyemi", email: "b.adeyemi@icloud.com", requestedRole: "Party Member", party: "NNPP", membershipId: "Glopo0380", status: "Rejected", date: "May 9th, 2025" },
+];
+
 export type AccreditationStatus = "Accredited" | "Pending" | "Revoked";
 export const electionObservers = [
   { id: "EO-204", name: "Ngozi Umeh", organization: "YIAGA Africa", email: "n.umeh@yiaga.org", state: "Lagos", election: "2027 General Election", status: "Accredited" as AccreditationStatus },

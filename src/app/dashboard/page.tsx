@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ChevronDown, Upload } from "lucide-react";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { UserGrowthChart, ContentDistributionChart } from "@/components/dashboard/charts";
@@ -73,9 +74,19 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-4 gap-4">
-        {stats.map((s) => (
-          <StatCard key={s.label} {...s} />
-        ))}
+        {stats.map((s) =>
+          s.label === "Verification Requests" ? (
+            <Link
+              key={s.label}
+              href="/dashboard/users/verifications"
+              className="rounded-xl transition-shadow hover:shadow-md"
+            >
+              <StatCard {...s} />
+            </Link>
+          ) : (
+            <StatCard key={s.label} {...s} />
+          )
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
