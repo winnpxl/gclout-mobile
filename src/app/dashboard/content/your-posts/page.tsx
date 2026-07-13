@@ -103,7 +103,12 @@ function EventEmbed() {
           <Mic size={12} /> Hosted by Jonathan Adebola
         </div>
       </div>
-      <div className="mx-3 h-40 rounded-lg bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/event-audience.png"
+        alt=""
+        className="mx-3 h-40 w-[calc(100%-1.5rem)] rounded-lg object-cover"
+      />
       <div className="flex items-end justify-between px-4 py-3">
         <div>
           <div className="text-xs text-blue-100">Coming Up</div>
@@ -228,9 +233,12 @@ export default function YourPostsPage() {
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-                    G
-                  </span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/logo.png"
+                    alt="G-clout"
+                    className="h-10 w-10 shrink-0 rounded-full border border-gray-100 object-contain p-1"
+                  />
                   <div>
                     <div className="flex items-center gap-1.5">
                       <span className="text-sm font-semibold text-gray-900">

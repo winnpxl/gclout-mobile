@@ -100,14 +100,28 @@ export default function UserProfilePage({
       </div>
 
       {/* Cover banner */}
-      <div className="mt-4 h-56 rounded-xl bg-gradient-to-br from-rose-300 via-rose-400 to-rose-600" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/banner-profile.png"
+        alt=""
+        className="mt-4 h-56 w-full rounded-xl object-cover"
+      />
 
       {/* Avatar + name + actions */}
       <div className="flex items-start justify-between px-6">
         <div className="flex items-end gap-5 -mt-16">
-          <span className="flex h-36 w-36 items-center justify-center rounded-full border-4 border-white bg-rose-100 text-3xl font-semibold text-rose-700 shadow">
-            {initials(user.name)}
-          </span>
+          {user.avatar ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={user.avatar}
+              alt={user.name}
+              className="h-36 w-36 rounded-full border-4 border-white object-cover shadow"
+            />
+          ) : (
+            <span className="flex h-36 w-36 items-center justify-center rounded-full border-4 border-white bg-rose-100 text-3xl font-semibold text-rose-700 shadow">
+              {initials(user.name)}
+            </span>
+          )}
           <div className="pb-1">
             <h2 className="text-2xl font-semibold text-gray-900">{user.name}</h2>
             <div className="mt-2 flex items-center gap-2">
@@ -231,18 +245,18 @@ export default function UserProfilePage({
         </div>
       ) : tab === "Content" || tab === "Contents" ? (
         <UserContentTab
-          author={{ name: user.name, title: `${user.role}, ${p.state} State` }}
+          author={{ name: user.name, title: `${user.role}, ${p.state} State`, avatar: user.avatar }}
         />
       ) : tab === "Submitted contents" ? (
         <UserContentTab
-          author={{ name: user.name, title: `${user.role}, ${p.state} State` }}
+          author={{ name: user.name, title: `${user.role}, ${p.state} State`, avatar: user.avatar }}
           heading="Ads pending review"
         />
       ) : tab === "Billings" ? (
         <BillingsTab />
       ) : (
         <UserAnalyticsTab
-          author={{ name: user.name, title: `${user.role}, ${p.state} State` }}
+          author={{ name: user.name, title: `${user.role}, ${p.state} State`, avatar: user.avatar }}
         />
       )}
 

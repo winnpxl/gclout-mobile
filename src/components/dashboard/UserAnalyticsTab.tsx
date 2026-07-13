@@ -28,6 +28,7 @@ function fmt(d: Date) {
 interface AuthorInfo {
   name: string;
   title: string;
+  avatar?: string;
 }
 
 export function UserAnalyticsTab({ author }: { author: AuthorInfo }) {
@@ -153,7 +154,16 @@ export function UserAnalyticsTab({ author }: { author: AuthorInfo }) {
             </div>
             <div className="mt-3 rounded-xl bg-white p-4">
               <div className="flex items-center gap-3">
-                <span className="h-9 w-9 shrink-0 rounded-full bg-gradient-to-br from-pink-300 via-fuchsia-300 to-blue-300" />
+                {author.avatar ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={author.avatar}
+                    alt={author.name}
+                    className="h-9 w-9 shrink-0 rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="h-9 w-9 shrink-0 rounded-full bg-gradient-to-br from-pink-300 via-fuchsia-300 to-blue-300" />
+                )}
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="text-sm font-semibold text-gray-900">

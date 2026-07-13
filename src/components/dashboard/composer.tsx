@@ -836,7 +836,12 @@ export function CreateIntegrityPollModal({
         </div>
 
         <div className="mt-4 overflow-hidden rounded-2xl bg-gray-50">
-          <div className="h-40 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-800" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/poll-subject-banner.png"
+            alt=""
+            className="h-40 w-full object-cover"
+          />
           <div className="flex items-center gap-3 p-4 pt-3">
             <span className="-mt-10 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-rose-100 text-lg font-semibold text-rose-700">
               {subject.name

@@ -10,9 +10,6 @@ import {
   X,
 } from "lucide-react";
 import type { ContentItem } from "@/lib/mock-data";
-import { cn } from "@/lib/utils";
-
-const galleryColors = ["bg-gray-800", "bg-gray-900", "bg-gray-800", "bg-slate-800"];
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
@@ -87,7 +84,12 @@ export function ContentDetailsModal({
               </h3>
               <p className="mt-1 text-sm text-gray-500">{item.body}</p>
               {item.hasCover && (
-                <div className="mt-4 h-56 w-full rounded-xl bg-gradient-to-br from-gray-700 via-gray-800 to-black" />
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src="/images/petition-cover.png"
+                  alt=""
+                  className="mt-4 h-56 w-full rounded-xl object-cover"
+                />
               )}
             </>
           )}
@@ -101,12 +103,12 @@ export function ContentDetailsModal({
               <p className="text-sm leading-relaxed text-gray-800">{item.body}</p>
               <div className="mt-4 grid grid-cols-2 gap-3">
                 {Array.from({ length: item.images ?? 0 }).map((_, i) => (
-                  <div
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
                     key={i}
-                    className={cn(
-                      "h-32 rounded-lg",
-                      galleryColors[i % galleryColors.length]
-                    )}
+                    src={`/images/post-${(i % 4) + 1}.png`}
+                    alt=""
+                    className="h-32 w-full rounded-lg object-cover"
                   />
                 ))}
               </div>

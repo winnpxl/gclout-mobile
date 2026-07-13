@@ -31,13 +31,6 @@ const moderationIcons: Record<Exclude<PostModeration, null>, React.ReactNode> = 
 
 const filters = ["All posts", "Flagged", "Taken down", "Appealed"] as const;
 
-const galleryColors = [
-  "bg-gray-800",
-  "bg-gray-900",
-  "bg-amber-700",
-  "bg-slate-800",
-];
-
 function EngagementRow({ post }: { post: UserPost }) {
   return (
     <div className="mt-3 flex items-center gap-6 text-sm text-gray-500">
@@ -64,7 +57,12 @@ function PostEmbed({ embed }: { embed: NonNullable<UserPost["embed"]> }) {
             <Mic size={12} /> Hosted by {embed.host}
           </div>
         </div>
-        <div className="mx-3 h-40 rounded-lg bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/event-audience.png"
+          alt=""
+          className="mx-3 h-40 w-[calc(100%-1.5rem)] rounded-lg object-cover"
+        />
         <div className="flex items-end justify-between px-4 py-3">
           <div>
             <div className="text-xs text-blue-100">Coming Up</div>
@@ -85,12 +83,12 @@ function PostEmbed({ embed }: { embed: NonNullable<UserPost["embed"]> }) {
     return (
       <div className="mt-3 grid grid-cols-4 gap-2">
         {Array.from({ length: embed.imageCount }).map((_, i) => (
-          <div
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
             key={i}
-            className={cn(
-              "h-44 rounded-lg",
-              galleryColors[i % galleryColors.length]
-            )}
+            src={`/images/post-${(i % 4) + 1}.png`}
+            alt=""
+            className="h-44 w-full rounded-lg object-cover"
           />
         ))}
       </div>
@@ -100,7 +98,12 @@ function PostEmbed({ embed }: { embed: NonNullable<UserPost["embed"]> }) {
   return (
     <div className="mt-3 rounded-xl border border-gray-200 p-3">
       <div className="text-sm font-medium text-gray-900">{embed.title}</div>
-      <div className="mt-3 h-40 rounded-lg bg-gradient-to-br from-amber-200 via-amber-300 to-amber-400" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/petition-cover.png"
+        alt=""
+        className="mt-3 h-40 w-full rounded-lg object-cover"
+      />
       <p className="mt-3 text-xs text-gray-600">
         {embed.description}{" "}
         <button type="button" className="text-primary hover:underline">
@@ -127,6 +130,7 @@ function PostEmbed({ embed }: { embed: NonNullable<UserPost["embed"]> }) {
 interface AuthorInfo {
   name: string;
   title: string;
+  avatar?: string;
 }
 
 function PostCard({ post, author }: { post: UserPost; author: AuthorInfo }) {
@@ -134,7 +138,16 @@ function PostCard({ post, author }: { post: UserPost; author: AuthorInfo }) {
     <article className="border-b border-gray-100 py-5 last:border-b-0">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <span className="h-10 w-10 shrink-0 rounded-full bg-gradient-to-br from-pink-300 via-fuchsia-300 to-blue-300" />
+          {author.avatar ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={author.avatar}
+              alt={author.name}
+              className="h-10 w-10 shrink-0 rounded-full object-cover"
+            />
+          ) : (
+            <span className="h-10 w-10 shrink-0 rounded-full bg-gradient-to-br from-pink-300 via-fuchsia-300 to-blue-300" />
+          )}
           <div>
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-semibold text-gray-900">

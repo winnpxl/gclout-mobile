@@ -108,6 +108,7 @@ export interface AdminUser {
   role: string;
   status: UserStatus;
   lastLogin: string;
+  avatar?: string;
   partyMember?: string;
   pendingApplication?: RoleApplication;
   profile: UserProfile;
@@ -133,7 +134,7 @@ export const billingRecords: BillingRecord[] = [
 ];
 
 export const users: AdminUser[] = [
-  { id: "rebecca-bashir", name: "Rebecca Bashir", email: "beccahye@icloud.com", phone: "+234 812 004 5477", role: "Citizen", status: "Active" as UserStatus, lastLogin: "Dec 1, 2024, 9:30", partyMember: "APC member", pendingApplication: { requestedRole: "Elected Rep", submitted: "May 17th, 2025", party: "APC", position: "Local Council Representative", electionYear: "2023" } as RoleApplication, profile: { dateOfBirth: "April 16, 1999", country: "Nigeria", nationality: "Nigerian", state: "Lagos", ward: "Makoko", accountType: "Citizen", partyAffiliation: "Labour Party", dateJoined: "June 24, 2023", joinedAs: "Member" } as UserProfile },
+  { id: "rebecca-bashir", name: "Rebecca Bashir", email: "beccahye@icloud.com", phone: "+234 812 004 5477", role: "Citizen", status: "Active" as UserStatus, lastLogin: "Dec 1, 2024, 9:30", avatar: "/images/avatar-rebecca.png", partyMember: "APC member", pendingApplication: { requestedRole: "Elected Rep", submitted: "May 17th, 2025", party: "APC", position: "Local Council Representative", electionYear: "2023" } as RoleApplication, profile: { dateOfBirth: "April 16, 1999", country: "Nigeria", nationality: "Nigerian", state: "Lagos", ward: "Makoko", accountType: "Citizen", partyAffiliation: "Labour Party", dateJoined: "June 24, 2023", joinedAs: "Member" } as UserProfile },
   { id: "lydia-durojaiye", name: "Lydia Durojaiye", email: "phoenixbaker@outlook.com", phone: "+234 909 078 2553", role: "Elected Rep", status: "Suspended" as UserStatus, lastLogin: "Nov 1, 2025, 9:30", profile: { dateOfBirth: "August 2, 1985", country: "Nigeria", nationality: "Nigerian", state: "Oyo", ward: "Ibadan North", accountType: "Elected Rep", partyAffiliation: "APC", dateJoined: "March 12, 2022", joinedAs: "Representative" } as UserProfile },
   { id: "candice-woo", name: "Candice Woo", email: "candicr@aol.com", phone: "+234 915 899 2253", role: "Appointed Rep", status: "Active" as UserStatus, lastLogin: "Oct 1, 2025, 9:30", profile: { dateOfBirth: "January 30, 1990", country: "Nigeria", nationality: "Nigerian", state: "Abuja FCT", ward: "Garki", accountType: "Appointed Rep", partyAffiliation: "PDP", dateJoined: "May 5, 2023", joinedAs: "Representative" } as UserProfile },
   { id: "susan-adeleke", name: "Susan Adeleke", email: "suan@gmail.com", phone: "+234 814 008 9294", role: "Citizen", status: "Suspended" as UserStatus, lastLogin: "Jul 1, 2025, 9:30", profile: { dateOfBirth: "October 11, 1995", country: "Nigeria", nationality: "Nigerian", state: "Ogun", ward: "Abeokuta South", accountType: "Citizen", partyAffiliation: "None", dateJoined: "August 19, 2023", joinedAs: "Member" } as UserProfile },
