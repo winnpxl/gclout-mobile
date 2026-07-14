@@ -175,55 +175,62 @@ function NewMessageModal({ onClose, onStart }: NewMessageModalProps) {
 
 function MessageBubble({ msg, senderName }: { msg: ChatMessage; senderName: string }) {
   const isYou = msg.from === "you";
-  return (
-    <div className={cn("flex flex-col", isYou ? "items-end" : "items-start")}>
-      <div
-        className={cn(
-          "flex items-baseline gap-3",
-          isYou ? "flex-row-reverse" : ""
-        )}
-      >
-        <span className="text-sm font-medium text-gray-900">
-          {isYou ? "You" : senderName}
+
+  const content = msg.attachment ? (
+    <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3">
+      <span className="flex h-9 w-9 items-center justify-center rounded bg-red-600 text-white">
+        <FileText size={16} />
+      </span>
+      <span>
+        <span className="block text-sm font-medium text-gray-900">
+          {msg.attachment.name}
         </span>
-        <span className="text-xs text-gray-400">{msg.time}</span>
-      </div>
-      <div className={cn("mt-1 flex items-end gap-2", isYou ? "" : "pl-0")}>
-        {!isYou && <Avatar name={senderName} size="h-8 w-8" />}
-        {msg.attachment ? (
-          <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded bg-red-600 text-white">
-              <FileText size={16} />
-            </span>
-            <span>
-              <span className="block text-sm font-medium text-gray-900">
-                {msg.attachment.name}
-              </span>
-              <span className="block text-xs text-gray-500">
-                {msg.attachment.size}
-              </span>
-            </span>
-          </div>
-        ) : (
-          <div
-            className={cn(
-              "max-w-md rounded-xl px-4 py-2.5 text-sm",
-              isYou
-                ? "bg-primary text-white"
-                : "bg-gray-100 text-gray-800"
-            )}
-          >
-            {msg.text}
-          </div>
-        )}
-      </div>
-      {msg.reactions && msg.reactions.length > 0 && (
-        <div className="mt-1 flex gap-1 text-sm">
-          {msg.reactions.map((r, i) => (
-            <span key={i}>{r}</span>
-          ))}
-        </div>
+        <span className="block text-xs text-gray-500">
+          {msg.attachment.size}
+        </span>
+      </span>
+    </div>
+  ) : (
+    <div
+      className={cn(
+        "max-w-md rounded-xl px-4 py-2.5 text-sm",
+        isYou ? "bg-primary text-white" : "bg-gray-100 text-gray-800"
       )}
+    >
+      {msg.text}
+    </div>
+  );
+
+  const reactions = msg.reactions && msg.reactions.length > 0 && (
+    <div className="mt-1 flex gap-1 text-sm">
+      {msg.reactions.map((r, i) => (
+        <span key={i}>{r}</span>
+      ))}
+    </div>
+  );
+
+  if (isYou) {
+    return (
+      <div className="flex flex-col items-end">
+        <div className="flex flex-row-reverse items-baseline gap-3">
+          <span className="text-sm font-medium text-gray-900">You</span>
+          <span className="text-xs text-gray-400">{msg.time}</span>
+        </div>
+        <div className="mt-1 flex items-end gap-2">{content}</div>
+        {reactions}
+      </div>
+    );
+  }
+
+  // Incoming: no sender name, timestamp below the bubble.
+  return (
+    <div className="flex flex-col items-start">
+      <div className="flex items-end gap-2">
+        <Avatar name={senderName} size="h-8 w-8" />
+        {content}
+      </div>
+      <span className="mt-1 pl-10 text-xs text-gray-400">{msg.time}</span>
+      {reactions}
     </div>
   );
 }
